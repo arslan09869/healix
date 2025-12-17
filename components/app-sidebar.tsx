@@ -55,9 +55,9 @@ export function AppSidebar() {
       <SidebarHeader className="p-4 border-b">
         <Link href="/" className="hover:opacity-80 transition-opacity flex items-center gap-2">
           <div className="h-8 w-8 rounded-lg bg-black flex items-center justify-center">
-            <span className="text-white font-bold text-lg">V</span>
+            <span className="text-white font-bold text-lg">H</span>
           </div>
-          <span className="font-semibold text-black">Vivo Health</span>
+          <span className="font-semibold text-black">Healix</span>
         </Link>
       </SidebarHeader>
       <SidebarContent>

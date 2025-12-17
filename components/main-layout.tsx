@@ -18,15 +18,15 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Link href="/" className="flex items-center">
             <div className="h-8 w-8 rounded-lg bg-black flex items-center justify-center">
-              <span className="text-white font-bold text-lg">V</span>
+              <span className="text-white font-bold text-lg">H</span>
             </div>
             <span className="ml-2 text-lg font-semibold text-black hidden sm:inline">
-              Vivo Health
+              Healix
             </span>
           </Link>
           
           {/* Navigation Bar */}
-          <nav className="flex items-center gap-1 ml-6">
+          <nav className="flex items-center gap-1 ml-4 sm:ml-6">
             <Link
               href="/"
               className="px-4 py-2 text-sm font-medium text-black border-b-2 border-black"

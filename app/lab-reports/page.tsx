@@ -160,16 +160,17 @@ export default function LabReportsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-center sm:text-left">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
             Lab Report Analysis
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             Upload and analyze your lab test results with AI-powered insights
           </p>
         </div>
-        <div className="flex items-center gap-2">
+
+        <div className="flex justify-center items-center gap-2">
           <GmailConnector />
           <LabReportUpload onUploadSuccess={fetchLabReports} />
         </div>
