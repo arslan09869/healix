@@ -1,8 +1,3 @@
--- ============================================
--- Vivo Health - Supabase Database Schema
--- ============================================
-
--- Lab Reports Table
 CREATE TABLE IF NOT EXISTS lab_reports (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -45,7 +40,6 @@ CREATE POLICY "Users can delete own lab reports"
   FOR DELETE
   USING (auth.uid() = user_id);
 
--- Notes Table
 CREATE TABLE IF NOT EXISTS notes (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -86,7 +80,6 @@ CREATE POLICY "Users can delete own notes"
   FOR DELETE
   USING (auth.uid() = user_id);
 
--- Optional tags column for notes (run only if missing)
 DO $$
 BEGIN
   IF NOT EXISTS (

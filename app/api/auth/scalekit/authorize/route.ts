@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ScalekitClient } from "@scalekit-sdk/node";
 
-const ENV_URL = process.env.SCALEKIT_ENVIRONMENT_URL || "https://vivo.scalekit.dev";
+const ENV_URL = process.env.SCALEKIT_ENVIRONMENT_URL || "https://healix.scalekit.com";
 const CLIENT_ID = process.env.SCALEKIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.SCALEKIT_CLIENT_SECRET;
 

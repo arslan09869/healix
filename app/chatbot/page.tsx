@@ -1,18 +1,24 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Send, Bot, User, Sparkles } from "lucide-react"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Send, Bot, User, Sparkles } from "lucide-react";
 
 interface Message {
-  id: string
-  role: "user" | "assistant"
-  content: string
-  timestamp: Date
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  timestamp: Date;
 }
 
 export default function ChatbotPage() {
@@ -20,43 +26,63 @@ export default function ChatbotPage() {
     {
       id: "1",
       role: "assistant",
-      content: "Hello! I'm your AI health assistant. I can help you understand your lab results, answer medical questions, and provide health information. How can I assist you today?",
+      content:
+        "Hello! I'm your AI health assistant. I can help you understand your lab results, answer medical questions, and provide health information. How can I assist you today?",
       timestamp: new Date(),
     },
-  ])
-  const [input, setInput] = useState("")
+  ]);
+  const [input, setInput] = useState("");
 
-  const handleSend = () => {
-    if (!input.trim()) return
+  const handleSend = async () => {
+    if (!input.trim()) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: "user",
       content: input,
       timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+
+    const reply = await fetch("/api/lab/analyze", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text: input,
+      }),
+    });
+
+    const data = await reply.json();
+
+    if (!reply.ok) {
+      throw new Error(data.error || "Analysis failed");
     }
 
-    setMessages((prev) => [...prev, userMessage])
-    setInput("")
+    console.log(data.analysis);
 
     // Simulate AI response (in real app, this would call an API)
-    setTimeout(() => {
+    // setTimeout(() => {
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "I understand your question. In a production environment, this would be processed by our AI service to provide accurate medical information. For now, this is a demonstration of the chat interface.",
+        content: data.analysis,
         timestamp: new Date(),
-      }
-      setMessages((prev) => [...prev, aiMessage])
-    }, 1000)
-  }
+      };
+      setMessages((prev) => [...prev, aiMessage]);
+    // }, 1000);
+  };
 
   return (
     <div className="space-y-6 h-full flex flex-col">
       <div>
         <h2 className="text-3xl font-bold tracking-tight">AI Health Chatbot</h2>
         <p className="text-muted-foreground">
-          Get instant answers to your medical questions with AI-powered assistance
+          Get instant answers to your medical questions with AI-powered
+          assistance
         </p>
       </div>
 
@@ -67,7 +93,8 @@ export default function ChatbotPage() {
             <CardTitle>Chat with AI Assistant</CardTitle>
           </div>
           <CardDescription>
-            Ask questions about your health, lab results, medications, or general wellness
+            Ask questions about your health, lab results, medications, or
+            general wellness
           </CardDescription>
         </CardHeader>
         <CardContent className="flex-1 flex flex-col p-0">
@@ -123,8 +150,8 @@ export default function ChatbotPage() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault()
-                    handleSend()
+                    e.preventDefault();
+                    handleSend();
                   }
                 }}
                 placeholder="Type your question here..."
@@ -135,7 +162,8 @@ export default function ChatbotPage() {
               </Button>
             </div>
             <p className="text-xs text-muted-foreground mt-2">
-              This AI assistant is for informational purposes only and does not replace professional medical advice.
+              This AI assistant is for informational purposes only and does not
+              replace professional medical advice.
             </p>
           </div>
         </CardContent>
@@ -178,7 +206,8 @@ export default function ChatbotPage() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Get personalized health recommendations based on your lab results and medical history.
+              Get personalized health recommendations based on your lab results
+              and medical history.
             </p>
           </CardContent>
         </Card>
@@ -188,12 +217,12 @@ export default function ChatbotPage() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Ask about medications, symptoms, conditions, and general health topics.
+              Ask about medications, symptoms, conditions, and general health
+              topics.
             </p>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }
-

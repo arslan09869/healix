@@ -3,7 +3,7 @@ import { ScalekitClient } from "@scalekit-sdk/node";
 import { createClient } from "@supabase/supabase-js";
 
 const ENV_URL =
-  process.env.SCALEKIT_ENVIRONMENT_URL || "https://vivo.scalekit.dev";
+  process.env.SCALEKIT_ENVIRONMENT_URL || "https://healix.scalekit.com";
 const CLIENT_ID = process.env.SCALEKIT_CLIENT_ID;
 const CLIENT_SECRET = process.env.SCALEKIT_CLIENT_SECRET;
 
