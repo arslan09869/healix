@@ -103,7 +103,7 @@ export default function AuthPage() {
     setLoading(true);
     setError(null);
     try {
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+      const appUrl = "https://healix-lac.vercel.app";
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
